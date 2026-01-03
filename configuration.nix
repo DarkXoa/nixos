@@ -78,7 +78,9 @@
     libvirt
     neovim
     networkmanager
+    nix-search-tv
     qemu_full
+    television
     virt-manager
     wget
   ];
