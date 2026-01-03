@@ -18,11 +18,9 @@
     efi = {
       canTouchEfiVariables = true;
     };
-    grub = {
+    systemd-boot = {
       enable = true;
-      device = "/dev/vda";
-      useOSProber = true;
-    };
+      };
   };
 
   # Use latest kernel.
@@ -84,6 +82,8 @@
     virt-manager
     wget
   ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # List services that you want to enable:
 
