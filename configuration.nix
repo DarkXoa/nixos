@@ -7,9 +7,8 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       ./niri.nix
-      ./user-pkgs.nix
+      ./enkidu-pkgs.nix
       # ./gaming.nix
     ];
 
@@ -50,38 +49,50 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+    # Volume control
+    services.pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+    };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.darkxoa = {
-  #   isNormalUser = true;
-  #   description = "DarkXoa";
-  #   extraGroups = [ "networkmanager" "wheel" ];
-  #   packages = with pkgs; [];
-  # };
+  # Define user account
+  users.users.darkxoa = {
+    isNormalUser = true;
+    description = "DarkXoa";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "input"
+      "libvirtd"
+    ];
+    useDefaultShell = true;
+    packages = with pkgs; [];
+  };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Default shell
+  users.defaultUserShell = pkgs.zsh;
+  programs = {
+    zsh = {
+      enable = true;
+      syntaxHighlighting.enable = true;
+      autosuggestions.enable = true;
+    };
+  };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    fastfetch
-    gh
-    git
-    libvirt
-    neovim
-    networkmanager
-    nix-search-tv
-    qemu_full
-    television
-    virt-manager
-    wget
-  ];
+    # Enable CAC reader
+    services.pcscd.enable = true;
+    programs.ssh.extraConfig = ''
+      PKCS11Provider ${pkgs.opensc}/lib/opensc-pkcs11.so
+    '';
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

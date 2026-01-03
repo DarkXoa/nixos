@@ -30,14 +30,6 @@
     zsh
   ];
 
-  # Volume control
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-  };
-
   # Set XDG_RUNTIME_DIR for wayland
   environment.sessionVariables = {
     XDG_SESSION_TYPE = "wayland";

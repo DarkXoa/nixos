@@ -11,13 +11,27 @@
 
   outputs = { self, nixpkgs, ...}@inputs: {
     nixosConfigurations = {
+
       enkidu = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+          ./enkidu-pkgs.nix
+          ./enkidu-hardware.nix
         ];
       };
+
+      # gilgamesh = nixpkgs.lib.nixosSystem {
+      #   specialArgs = { inherit inputs; };
+      #   system = "x86_64-linux";
+      #   modules = [
+      #     ./modules/configuration.nix
+      #     ./hosts/gilgamesh/gilgamesh-pkgs.nix
+      #     ./hosts/gilgamesh/hardware-configuration.nix
+      #   ];
+      # };
+
     };
   };
 }
