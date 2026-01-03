@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./niri.nix
-      ./enkidu-pkgs.nix
+      ./base-pkgs.nix
       # ./gaming.nix
     ];
 
@@ -88,11 +88,18 @@
     };
   };
 
-    # Enable CAC reader
-    services.pcscd.enable = true;
-    programs.ssh.extraConfig = ''
-      PKCS11Provider ${pkgs.opensc}/lib/opensc-pkcs11.so
-    '';
+  # Enable CAC reader
+  services.pcscd.enable = true;
+  programs.ssh.extraConfig = ''
+    PKCS11Provider ${pkgs.opensc}/lib/opensc-pkcs11.so
+  '';
+
+  # Fuck you spotify
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
+
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

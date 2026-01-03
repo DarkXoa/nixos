@@ -16,9 +16,9 @@
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
-          ./enkidu-pkgs.nix
-          ./enkidu-hardware.nix
+          ./modules/configuration.nix
+          ./hosts/enkidu/enkidu-pkgs.nix
+          ./hosts/enkidu/enkidu-hardware.nix
         ];
       };
 
