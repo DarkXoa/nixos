@@ -1,10 +1,11 @@
-{ configs, pkgs, ... }:
+{ config, pkgs, ... }:
 
 
 {
 
   environment.systemPackages = with pkgs; [
   # Install system packages
+    capitaine-cursors
     fastfetch
     gh
     git

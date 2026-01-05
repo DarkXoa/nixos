@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       ./niri.nix
       ./base-pkgs.nix
-      # ./gaming.nix
     ];
 
   # Bootloader.
@@ -24,9 +23,6 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -99,14 +95,7 @@
     NIXOS_OZONE_WL = "1";
   };
 
-
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

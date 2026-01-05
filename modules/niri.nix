@@ -41,13 +41,14 @@
   services.displayManager.sddm = {
     wayland.enable = true;
     enable = true;
-    theme = "sddm-sugar-dark";
+    theme = "sugar-dark";
     package = pkgs.kdePackages.sddm;
   };
 
   #Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    liberation_ttf
   ];
 
 

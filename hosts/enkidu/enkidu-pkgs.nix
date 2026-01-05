@@ -1,4 +1,4 @@
-{ configs, pkgs, ... }:
+{ config, pkgs, ... }:
 
 
 {
@@ -10,8 +10,8 @@
   ];
 
   # Shell aliases
-  programs.bash.shellAliases = {
-   rebuild = "sudo nixos-rebuild switch --flake ~/.config/nixos#enkidu";
+  programs.zsh.shellAliases = {
+   rebuild = "sudo nixos-rebuild switch --flake /home/darkxoa/.config/nixos#enkidu";
   };
 
 
