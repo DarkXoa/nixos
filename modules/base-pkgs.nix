@@ -5,23 +5,26 @@
 
   environment.systemPackages = with pkgs; [
   # Install system packages
-    capitaine-cursors
+    btop
     fastfetch
+    geekbench
     gh
     git
     libvirt
+    libxcb-cursor
     neovim
     networkmanager
     nix-search-tv
+    nvtopPackages.nvidia
     qemu_full
     television
     virt-manager
     wget
   # Install user packages
+    altus
     mullvad-browser
     mpv
     obsidian
-    protonmail-bridge-gui
     protonmail-desktop
     signal-desktop
     spotify
@@ -29,7 +32,6 @@
     thunderbird
     webcord
     winboat
-    zapzap
   ];
 
   # Mullvad VPN services

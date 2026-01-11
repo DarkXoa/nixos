@@ -2,13 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./niri.nix
       ./base-pkgs.nix
+      # ./home.nix
+      ./style.nix
     ];
 
   # Bootloader.
@@ -21,11 +23,13 @@
       };
   };
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Use latest kernel
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Enable networking
+  # Enable networking and bluetooth
   networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -45,13 +49,13 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-    # Volume control
-    services.pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-    };
+  # Volume control
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -104,5 +108,29 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
+
+  # stylix =  {
+  #   enable = true;
+  #   image = ./lavender_twilight.jpg;
+  #   cursor = {
+  #     package = pkgs.capitaine-cursors;
+  #     name = "capitaine-cursors";
+  #   };
+  #   polarity = "dark";
+  #   fonts = {
+  #     monospace = {
+  #         package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+  #         name = "JetBrainsMono Nerd Font Mono";
+  #       };
+  #     sansSerif = {
+  #         package = pkgs.dejavu_fonts;
+  #         name = "DejaVu Sans";
+  #       };
+  #     serif = {
+  #         package = pkgs.dejavu_fonts;
+  #         name = "DejaVu Serif";
+  #     };
+  #   };
+  # };
 
 }
