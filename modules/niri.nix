@@ -14,6 +14,8 @@
   # Desktop environment packages
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    dconf2nix
+    dconf-editor
     kitty
     hypridle
     hyprlock
@@ -23,7 +25,6 @@
     nemo-with-extensions
     playerctl
     polkit_gnome
-    sddm-sugar-dark
     wl-clipboard
     xwayland-satellite
     zed-editor
@@ -41,11 +42,9 @@
   services.xserver.enable = true;
 
   # Login manager
-  services.displayManager.sddm = {
-    wayland.enable = true;
+  services.displayManager.gdm = {
     enable = true;
-    theme = "sugar-dark";
-    package = pkgs.kdePackages.sddm;
+    wayland = true;
   };
 
   #Fonts

@@ -18,22 +18,20 @@
     };
   };
 
-  outputs = { self, nixpkgs, stylix, home-manager, ...}@inputs: {
+  outputs = { self, nixpkgs, nix-cachyos-kernel, stylix, home-manager, ...}@inputs: {
     nixosConfigurations = {
 
       enkidu = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
-          (
-            { pkgs, ... }:
-            {
-              pkgs.overlays = [ self.overlays.pinned ];
-              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+          # Add CachyOS kernel variants
+          ({ pkgs, ... }: {
+              nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore;
               nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
               nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
-            }
-          )
+            })
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           ./modules/configuration.nix
@@ -46,6 +44,13 @@
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
+          # Add CachyOS kernel variants
+          ({ pkgs, ... }: {
+              nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-lto;
+              nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
+              nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+            })
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           ./modules/configuration.nix
