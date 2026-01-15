@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 
 {
 
   environment.systemPackages = with pkgs; [
-  # Install system packages
+    # Install system packages
     btop
     fastfetch
     geekbench
@@ -14,13 +13,15 @@
     libxcb-cursor
     neovim
     networkmanager
+    nil
     nix-search-tv
+    nixd
     nvtopPackages.nvidia
     qemu_full
     television
     virt-manager
     wget
-  # Install user packages
+    # Install user packages
     altus
     mullvad-browser
     mpv
@@ -57,6 +58,5 @@
     enable = true;
     binfmt = true;
   };
-
 
 }

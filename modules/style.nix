@@ -1,4 +1,4 @@
-{ pkgs, home-manager, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -8,7 +8,7 @@
     }
   ];
 
-  stylix =  {
+  stylix = {
     enable = true;
     image = ./lavender_twilight.jpg;
     cursor = {
@@ -19,16 +19,16 @@
     polarity = "dark";
     fonts = {
       monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrainsMono Nerd Font Mono";
-        };
+        package = pkgs.nerd-fonts.terminess-ttf;
+        name = "Terminus Mono";
+      };
       sansSerif = {
-          package = pkgs.dejavu_fonts;
-          name = "DejaVu Sans";
-        };
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
       serif = {
-          package = pkgs.dejavu_fonts;
-          name = "DejaVu Serif";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
       };
     };
   };

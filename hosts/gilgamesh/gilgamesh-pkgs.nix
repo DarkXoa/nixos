@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 
 {
 
@@ -10,6 +9,7 @@
 
   # Install user packages
   environment.systemPackages = with pkgs; [
+    libation
     # cachyos-gaming-meta packages
     glfw
     gst_all_1.gst-plugins-base
@@ -45,9 +45,9 @@
     };
   };
 
-  environment.variables.LIBVA_DRIVER_NAME = "nvidia"
+  environment.variables.LIBVA_DRIVER_NAME = "nvidia";
 
-  programs
+  programs = {
     # Steam settings
     steam = {
       enable = true;
@@ -60,18 +60,19 @@
         proton-ge-bin
         protonplus
       ];
-      extraPkgs = pkgs': with pkgs'; [
-        xorg.libXcursor
-        xorg.libXi
-        xorg.libXinerama
-        xorg.libXScrnSaver
-        libpng
-        libpulseaudio
-        libvorbis
-        stdenv.cc.cc.lib # Provides libstdc++.so.6
-        libkrb5
-        keyutils
-      ];
+      extraPkgs =
+        pkgs': with pkgs'; [
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libXScrnSaver
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib # Provides libstdc++.so.6
+          libkrb5
+          keyutils
+        ];
       extest.enable = true;
     };
     # OBS Studio settings

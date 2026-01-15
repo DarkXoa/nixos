@@ -2,16 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
-  imports =
-    [
-      ./niri.nix
-      ./base-pkgs.nix
-      # ./home.nix
-      ./style.nix
-    ];
+  imports = [
+    ./niri.nix
+    ./base-pkgs.nix
+    # ./home.nix
+    ./style.nix
+  ];
 
   # Bootloader.
   boot.loader = {
@@ -20,7 +19,7 @@
     };
     systemd-boot = {
       enable = true;
-      };
+    };
   };
 
   # Use latest kernel
@@ -75,7 +74,7 @@
       "libvirtd"
     ];
     useDefaultShell = true;
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
 
   # Default shell
@@ -99,7 +98,10 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

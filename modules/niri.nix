@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
 
@@ -51,8 +51,8 @@
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
+    nerd-fonts.terminess-ttf
     liberation_ttf
   ];
-
 
 }

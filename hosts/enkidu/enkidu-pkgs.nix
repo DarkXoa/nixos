@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 
 {
   # Install user packages
@@ -11,8 +10,7 @@
 
   # Shell aliases
   programs.zsh.shellAliases = {
-   rebuild = "sudo nixos-rebuild switch --flake /home/darkxoa/.config/nixos#enkidu";
+    rebuild = "sudo nixos-rebuild switch --flake /home/darkxoa/.config/nixos#enkidu";
   };
-
 
 }
