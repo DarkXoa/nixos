@@ -7,10 +7,10 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # noctalia = {
+    #   url = "github:noctalia-dev/noctalia-shell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     stylix = {
       url = "github:nix-community/stylix/release-25.11";
