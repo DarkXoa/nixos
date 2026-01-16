@@ -2,7 +2,12 @@
 
 {
 
+  imports = [
+    inputs.dms.nixosModules.dank-material-shell
+  ];
+
   programs = {
+    dank-material-shell.enable = true;
     niri.enable = true;
     hyprlock.enable = true;
   };
@@ -13,7 +18,7 @@
 
   # Desktop environment packages
   environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     dconf2nix
     dconf-editor
     kitty

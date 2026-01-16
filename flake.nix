@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,47 +22,62 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-cachyos-kernel, stylix, home-manager, ...}@inputs: {
-    nixosConfigurations = {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-cachyos-kernel,
+      stylix,
+      home-manager,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations = {
 
-      enkidu = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        system = "x86_64-linux";
-        modules = [
-          # Add CachyOS kernel variants
-          ({ pkgs, ... }: {
-              nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore;
-              nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
-              nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
-            })
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          ./modules/configuration.nix
-          ./hosts/enkidu/enkidu-pkgs.nix
-          ./hosts/enkidu/enkidu-hardware.nix
-        ];
+        enkidu = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          modules = [
+            # Add CachyOS kernel variants
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+                boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore;
+                nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
+                nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+              }
+            )
+            stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            ./modules/configuration.nix
+            ./hosts/enkidu/enkidu-pkgs.nix
+            ./hosts/enkidu/enkidu-hardware.nix
+          ];
+        };
+
+        gilgamesh = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          modules = [
+            # Add CachyOS kernel variants
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+                boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-lto;
+                nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
+                nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+              }
+            )
+            stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
+            ./modules/configuration.nix
+            ./hosts/gilgamesh/gilgamesh-pkgs.nix
+            ./hosts/gilgamesh/hardware-configuration.nix
+          ];
+        };
+
       };
-
-      gilgamesh = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        system = "x86_64-linux";
-        modules = [
-          # Add CachyOS kernel variants
-          ({ pkgs, ... }: {
-              nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-lto;
-              nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
-              nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
-            })
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          ./modules/configuration.nix
-          ./hosts/gilgamesh/gilgamesh-pkgs.nix
-          ./hosts/gilgamesh/hardware-configuration.nix
-        ];
-      };
-
     };
-  };
 }
